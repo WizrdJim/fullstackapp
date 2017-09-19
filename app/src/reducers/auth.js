@@ -6,7 +6,7 @@ import {
 } from '../actions';
 
 const AuthReducer = (auth = {
-  authenticated: localStorage.getItem('token') ? true : false
+  authenticated: localStorage.getItem('id') ? true : false
 }, action) => {
   switch (action.type) {
     case USER_AUTHENTICATED:

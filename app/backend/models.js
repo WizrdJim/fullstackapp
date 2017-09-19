@@ -16,9 +16,11 @@ const UserSchema = new Schema({
   }
 });
 
-const BusinessCardSchema = new Schema({
+const BusyCardSchema = new Schema({
   parentID: {
-    type: String
+    type: String,
+    required: true,
+    unique: true,
   },
   name: String,
   title: {
@@ -44,11 +46,11 @@ const CardListSchema = new Schema({
   }],  
 })
 User = mongoose.model("User", UserSchema);
-BusinessCard = mongoose.model("BusinessCard", BusinessCardSchema);
+BusyCard = mongoose.model("BusyCard", BusyCardSchema);
 CardList = mongoose.model("CardList", CardListSchema);
 
 module.exports = {
   User,
-  BusinessCard,
+  BusyCard,
   CardList
 };

@@ -4,10 +4,11 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const morgan = require('morgan');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 const model = require('./models');
 const User = model.User;
-const BusinessCard = model.BusinessCard;
+const BusyCard = model.BusyCard;
 const CardList = model.CardList;
 
 const BCRYPT_COST = 11;
@@ -77,10 +78,22 @@ app.post('/user', (req, res) => {
         sendUserError(error, res);
         return;
       }
-      res.json({Success: Happens});
+      res.json({Success: "Happens"});
     })
   })
 })
+app.post('/createcard', (req, res) => {
+  const { card } = req.body;
+  const newCard = new BusyCard({ card });
+  newCard.save((error, card) => {
+    if (error) {
+      sendUserError(error, res);
+      return;
+    }
+    res.json({Success: "Happens"});
+  })
+});
+
 app.post("/login", (req, res) => {
   const { username, password } = req.body;
   if(!password) {
@@ -89,6 +102,7 @@ app.post("/login", (req, res) => {
   if(!username) {
     sendUserError("Please input a valid Username/Password", res);
   }
+  console.log('username: ' + username + ' password: ' + password);
   User.findOne({ username }, (err, user) => {
     if (err) {
       sendUserError(err, res);
@@ -98,9 +112,9 @@ app.post("/login", (req, res) => {
       sendUserError("Please input a valid Username/Password", res);
       return;
     }
-    if (brypt.compareSync(password, user.passwordHash)) {
-      const token = jwt.sign(user, 'secret', { expiresIn: '1h' });
-      res.json({ success: true, token });
+    if (bcrypt.compareSync(password, user.passwordHash)) {
+      //implement token here
+      res.json({ success: true, id: user._id});
       return;
     }
     sendUserError("Please input a valid Username/Password", res);

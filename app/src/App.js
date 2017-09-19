@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Route } from 'react-router-dom';
+import { Route, withRouter } from 'react-router-dom';
 
 import logo from './logo.svg';
 import Navbar from './components/Navbar';
@@ -19,15 +19,17 @@ class App extends Component {
         errorMessage = {errorMessage}
         dispatch = {dispatch}
         />
-        <div className="App-header">
+        {/* <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <h2>Welcome to Busy Cards!!!</h2>
         </div>
         <p className="App-intro">
           This is a fullstack application built to people to pass around business cards digitally and connect with those around them.
-        </p>
+        </p> */}
         <div>
-          <Route path="/signup" component ={ Pages.CreateUser } />
+          <Route exact path="/" component ={Pages.Home} />
+          <Route path="/signup" component = { Pages.CreateUser } />
+          <Route path="/createcard" component = {Pages.CreateCard} />
         </div>
       </div>
     );
@@ -43,4 +45,4 @@ const mapStateToProps = state => {
     errorMessage
   }
 }
-export default connect(mapStateToProps)(App);
+export default withRouter(connect(mapStateToProps)(App));

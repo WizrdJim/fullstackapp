@@ -1,5 +1,5 @@
 import axios from 'axios';
-const SERVER_URL = 'http://localhost:3000';
+const SERVER_URL = 'http://localhost:3007';
 axios.default.withCredentials = true;
 
 export const USER_REGISTERED = 'USER_REGISTERED';
@@ -34,11 +34,27 @@ export const register = (username, password, confirmPassword, history) => {
   };
 };
 
-export const login = (username, password) => {
+export const createcard = (card) => {
   return (dispatch) => {
+    axios.post(`${SERVER_URL}/createcard`, { card })
+      .then((response) => {
+        dispatch({
+          type: CREATE_CARD,
+        })
+      })
+      .catch(() => {
+        dispatch(
+          authError('Failed to create card')
+        );
+      });
+  };
+};
+export const login = (user) => {
+  return (dispatch) => {
+    const { username, password } = user;
     axios.post(`${SERVER_URL}/login`, {username, password })
       .then((data) => {
-        localStorage.setItem('token', data.data.token);
+        localStorage.setItem('id', data.data.id);
         dispatch({
           type: USER_AUTHENTICATED,
         });
@@ -51,33 +67,22 @@ export const login = (username, password) => {
 
 export const logout = () => {
   return (dispatch) => {
-    axios.post(`${SERVER_URL}/logout`)
-      .then(() => {
-        dispatch({
-          type: USER_UNAUTHENTICATED,
-        });
-      })
-      .catch(() => {
-        dispatch(authError('Failed to log you out'));
-      });
+    localStorage.removeItem('id');
+    dispatch({
+      type: USER_UNAUTHENTICATED
+    });
+    // axios.post(`${SERVER_URL}/logout`)
+    //   .then(() => {
+    //     dispatch({
+    //       type: USER_UNAUTHENTICATED,
+    //     });
+    //   })
+    //   .catch(() => {
+    //     dispatch(authError('Failed to log you out'));
+    //   });
   };
 };
 
-export const createCard = (card) => {
-  return (dispatch) => {
-    axios.get(`${SERVER_URL}/createcard`)
-      .then((response) => {
-        dispatch({
-          type: CREATE_CARD,
-        })
-      })
-      .catch(() => {
-        dispatch(
-          authError('Failed to fetch users')
-        );
-      });
-  };
-};
 
 export const authenticationCheck = () => {
   return {

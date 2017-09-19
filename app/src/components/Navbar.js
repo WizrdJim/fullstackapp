@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Login from './Login';
 import Logout from './Logout';
+import { Link } from 'react-router-dom';
 import { login, logout } from '../actions';
 
 
@@ -18,7 +19,7 @@ export default class Navbar extends Component {
             onLoginClick = {user => dispatch(login(user))}
             />
           }
-
+          <Link to= 'signup'> Create Account </Link>
           {authenticated && 
             <Logout onLogoutClick = { () => dispatch(logout())}
               />
