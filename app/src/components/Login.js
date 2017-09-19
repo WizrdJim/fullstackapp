@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import { Link } from "react-router-dom";
 
 export default class Login extends Component {
   handleClick(event) {
     const username = this.refs.username;
     const password = this.refs.password;
     const user = { username: username.value.trim(), password: password.value.trim()}
-    this.props.onLoginClick(user);
+    this.props.onLoginClick(user, this.props.history);
   }
   render() {
     const { errorMessage } = this.props;

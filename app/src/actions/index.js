@@ -16,7 +16,8 @@ export const authError = (error) => {
   };
 };
 
-export const register = (username, password, confirmPassword, history) => {
+export const register = (user, history) => {
+  const {username, password, confirmPassword} = user;
   return (dispatch) => {
     if(password !== confirmPassword) {
       dispatch(authError('Please use matching passwords'));
@@ -25,8 +26,9 @@ export const register = (username, password, confirmPassword, history) => {
     axios.post(`${SERVER_URL}/user`, { username, password })
     .then(()=> {
       dispatch({
-        type: USER_REGISTERED,
+        type: USER_AUTHENTICATED,
       })
+      history.push('./createcard')
     })
     .catch(() => {
       dispatch(authError('Failed to register user'));
@@ -49,7 +51,7 @@ export const createcard = (card) => {
       });
   };
 };
-export const login = (user) => {
+export const login = (user, history) => {
   return (dispatch) => {
     const { username, password } = user;
     axios.post(`${SERVER_URL}/login`, {username, password })
@@ -58,6 +60,7 @@ export const login = (user) => {
         dispatch({
           type: USER_AUTHENTICATED,
         });
+        history.push('/createcard');
       })
       .catch(() => {
         dispatch(authError('Incorrect username or password'));
