@@ -83,8 +83,8 @@ app.post('/user', (req, res) => {
   })
 })
 app.post('/createcard', (req, res) => {
-  const { card } = req.body;
-  const newCard = new BusyCard({ card });
+  const { parentID, name, title, link } = req.body.card;
+  const newCard = new BusyCard({parentID, name, title, link});
   newCard.save((error, card) => {
     if (error) {
       sendUserError(error, res);

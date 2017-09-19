@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
-import { Link } from "react-router-dom";
+import { Link, Redirect, withRouter } from "react-router-dom";
 import { register } from '../actions';
 
 class CreateUser extends Component {
@@ -9,6 +9,7 @@ class CreateUser extends Component {
     console.log('username: ' + username);
     console.log(confirmPassword);
     this.props.register(username, password, confirmPassword);
+    Window.location = '/createcard';
   }
   renderAlert = () => {
     if (!this.props.errorMessage) return null;
@@ -53,7 +54,7 @@ const mapStateToProps = (state) => {
 };
 
 // Make sure to correctly fill in this `connect` call
-CreateUser = connect( mapStateToProps,{ register })(CreateUser);
+CreateUser = withRouter(connect( mapStateToProps,{ register })(CreateUser));
 
 export default reduxForm({
   form: 'createuser',

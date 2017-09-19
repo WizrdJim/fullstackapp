@@ -27,10 +27,10 @@ export const register = (username, password, confirmPassword, history) => {
       dispatch({
         type: USER_REGISTERED,
       })
-      .catch(() => {
-        dispatch(authError('Failed to register user'));
-      });
     })
+    .catch(() => {
+      dispatch(authError('Failed to register user'));
+    });
   };
 };
 
