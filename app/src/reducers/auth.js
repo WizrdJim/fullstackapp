@@ -10,9 +10,9 @@ const AuthReducer = (auth = {
 }, action) => {
   switch (action.type) {
     case USER_AUTHENTICATED:
-      return {...auth, authenticated: true};
+      return {...auth, authenticated: true, errorMessage: null};
     case USER_UNAUTHENTICATED:
-      return {...auth, authenticated: false};
+      return {...auth, authenticated: false, errorMessage: null};
     case AUTHENTICATION_ERROR:
       return {...auth, errorMessage: action.payload };
     default:

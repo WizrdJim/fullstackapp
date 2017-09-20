@@ -8,6 +8,7 @@ export const USER_UNAUTHENTICATED = 'USER_UNAUTHENTICATED';
 export const AUTHENTICATION_ERROR = 'AUTHENTICATION_ERROR';
 export const CARD_UPDATE = 'CARD_UPDATE';
 export const AUTHENTICATION_CHECK = 'AUTHENTICATION_CHECK';
+export const START_FRESH = 'START_FRESH';
 
 export const authError = (error) => {
   return {
@@ -86,6 +87,9 @@ export const logout = (history) => {
     dispatch({
       type: USER_UNAUTHENTICATED
     });
+    dispatch({
+      type: START_FRESH
+    })
     history.push('/');
     // axios.post(`${SERVER_URL}/logout`)
     //   .then(() => {
