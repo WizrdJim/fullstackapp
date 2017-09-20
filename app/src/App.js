@@ -14,11 +14,13 @@ class App extends Component {
         authenticated = {authenticated}
         errorMessage = {errorMessage}
         dispatch = {dispatch}
+        history = {this.props.history}
         />
         <div>
           <Route exact path="/" component ={Pages.Home} />
           <Route path="/signup" component = { Pages.CreateUser } />
           <Route path="/createcard" component = {Pages.CreateCard} />
+          <Route path="/user" component = {Pages.User} />
         </div>
       </div>
     );

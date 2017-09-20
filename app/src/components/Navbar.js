@@ -16,12 +16,12 @@ export default class Navbar extends Component {
           {!authenticated && 
            <Login
             errorMessage = { errorMessage }
-            onLoginClick = {(user, history) => dispatch(login(user, history))}
+            onLoginClick = {(user) => dispatch(login(user, this.props.history))}
             />
           }
           <Link to= 'signup'> Create Account </Link>
           {authenticated && 
-            <Logout onLogoutClick = { () => dispatch(logout())}
+            <Logout onLogoutClick = { () => dispatch(logout(this.props.history))}
               />
             }
           </div>

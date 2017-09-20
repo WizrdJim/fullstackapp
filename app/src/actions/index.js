@@ -68,10 +68,11 @@ export const login = (user, history) => {
         dispatch({
           type: USER_AUTHENTICATED,
         });
-        if(!history) {
-          console.log('somethings not connecting');
-        }
-        history.push('/createcard');
+        dispatch({
+          type: CARD_UPDATE,
+          payload: data.data.card
+        })
+        history.push('/user');
       })
       .catch(() => {
         dispatch(authError('Incorrect username or password'));
@@ -79,12 +80,13 @@ export const login = (user, history) => {
   };
 };
 
-export const logout = () => {
+export const logout = (history) => {
   return (dispatch) => {
     localStorage.removeItem('id');
     dispatch({
       type: USER_UNAUTHENTICATED
     });
+    history.push('/');
     // axios.post(`${SERVER_URL}/logout`)
     //   .then(() => {
     //     dispatch({

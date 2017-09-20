@@ -17,6 +17,13 @@ class CreateCard extends Component {
     this.handleLink = this.handleLink.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+  componentDidMount(){
+    this.setState({
+      name: this.props.name,
+      title: this.props.title,
+      link: this.props.link
+    })
+  }
   handleName(event) {
     this.setState({name: event.target.value})
   }

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 export default class Login extends Component {
   handleClick(event) {
+    event.preventDefault();
     const username = this.refs.username;
     const password = this.refs.password;
     const user = { username: username.value.trim(), password: password.value.trim()}
