@@ -6,7 +6,7 @@ export const USER_REGISTERED = 'USER_REGISTERED';
 export const USER_AUTHENTICATED = 'USER_AUTHENTICATED';
 export const USER_UNAUTHENTICATED = 'USER_UNAUTHENTICATED';
 export const AUTHENTICATION_ERROR = 'AUTHENTICATION_ERROR';
-export const CREATE_CARD = 'CREATE_CARD';
+export const CARD_UPDATE = 'CARD_UPDATE';
 export const AUTHENTICATION_CHECK = 'AUTHENTICATION_CHECK';
 
 export const authError = (error) => {
@@ -36,12 +36,13 @@ export const register = (user, history) => {
   };
 };
 
-export const createcard = (card) => {
+export const updateCard = (card) => {
   return (dispatch) => {
-    axios.post(`${SERVER_URL}/createcard`, { card })
+    axios.put(`${SERVER_URL}/card`, { card })
       .then((response) => {
         dispatch({
-          type: CREATE_CARD,
+          type: CARD_UPDATE,
+          payload: card
         })
       })
       .catch(() => {

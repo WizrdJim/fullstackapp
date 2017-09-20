@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
 import { withRouter } from "react-router-dom";
+import Card from '../components/Card';
 import { createcard } from '../actions';
 
 class CreateCard extends Component {
@@ -41,11 +42,14 @@ class CreateCard extends Component {
     ) 
   };
   render() {
-    // Use reduxForm to build the sign up form
-    // Check the other components to see how reduxForm is used
-    // There needs fields for name, title, and Confirm title
+    if(this.props.name) {
+      this.state.name = this.props.name;
+      this.state.title = this.props.title;
+      this.state.link = this.props.link;
+    }
     return (
       <div>
+
         <form onSubmit = {this.handleSubmit}>
           <fieldset>
             <label>name:</label>
@@ -71,7 +75,10 @@ class CreateCard extends Component {
 const mapStateToProps = (state) => {
   return {
     error: state.auth.errorMessage,
-    authenticated: state.auth.authenticated
+    authenticated: state.auth.authenticated,
+    name: state.card.name,
+    title: state.card.title,
+    link: state.card.link
   };
 };
 
