@@ -2,15 +2,15 @@ import React, { Component } from "react";
 import { connect } from 'react-redux';
 import { withRouter } from "react-router-dom";
 import Card from '../components/Card';
-import { createcard } from '../actions';
+import { updateCard } from '../actions';
 
 class CreateCard extends Component {
-  constructor() {
+  constructor(props) {
     super()
     this.state= {
-      name: '',
-      title: '',
-      link: ''
+      name: props.name,
+      title: props.title,
+      link: props.link
     }
     this.handleName = this.handleName.bind(this);
     this.handleTitle = this.handleTitle.bind(this);
@@ -31,9 +31,9 @@ class CreateCard extends Component {
     const { name, title, link } = this.state;
     console.log('name: ' + name);
     console.log(link);
-    const parentID = localStorage.getItem('id');
-    const card = {parentID, name, title, link };
-    this.props.createcard(card);
+    const id = localStorage.getItem('cardId');
+    const card = {id, name, title, link };
+    this.props.updateCard(card);
   }
   renderAlert = () => {
     if (!this.props.errorMessage) return null;
@@ -42,14 +42,9 @@ class CreateCard extends Component {
     ) 
   };
   render() {
-    if(this.props.name) {
-      this.state.name = this.props.name;
-      this.state.title = this.props.title;
-      this.state.link = this.props.link;
-    }
     return (
       <div>
-
+        <Card name = {this.state.name}  title = {this.state.title} link = {this.state.link} />
         <form onSubmit = {this.handleSubmit}>
           <fieldset>
             <label>name:</label>
@@ -83,5 +78,5 @@ const mapStateToProps = (state) => {
 };
 
 // Make sure to correctly fill in this `connect` call
-CreateCard = withRouter(connect( mapStateToProps,{ createcard })(CreateCard));
+CreateCard = withRouter(connect( mapStateToProps,{ updateCard })(CreateCard));
 export default CreateCard;

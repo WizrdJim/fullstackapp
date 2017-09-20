@@ -24,7 +24,11 @@ export const register = (user, history) => {
       return;
     }
     axios.post(`${SERVER_URL}/user`, { username, password })
-    .then(()=> {
+    .then((data)=> {
+      localStorage.setItem('id', data.data.id);
+      //Stores the card id in the local storage
+      //ideally everything would go through redux!
+      localStorage.setItem('cardId', data.data.bCard);
       dispatch({
         type: USER_AUTHENTICATED,
       })
@@ -58,9 +62,15 @@ export const login = (user, history) => {
     axios.post(`${SERVER_URL}/login`, {username, password })
       .then((data) => {
         localStorage.setItem('id', data.data.id);
+        //Stores the card id in the local storage
+        //ideally everything would go through redux!
+        localStorage.setItem('cardId', data.data.bCard);
         dispatch({
           type: USER_AUTHENTICATED,
         });
+        if(!history) {
+          console.log('somethings not connecting');
+        }
         history.push('/createcard');
       })
       .catch(() => {

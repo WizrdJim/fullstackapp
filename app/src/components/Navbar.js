@@ -16,7 +16,7 @@ export default class Navbar extends Component {
           {!authenticated && 
            <Login
             errorMessage = { errorMessage }
-            onLoginClick = {user => dispatch(login(user))}
+            onLoginClick = {(user, history) => dispatch(login(user, history))}
             />
           }
           <Link to= 'signup'> Create Account </Link>

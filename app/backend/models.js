@@ -7,10 +7,7 @@ mongoose.connect('mongodb://localhost/fullstackapp', {useMongoClient: true});
 
 const BusyCardSchema = new Schema({
   name: String,
-  title: {
-    type: String,
-    required: true
-  },
+  title: String,
   link: String
 });
 
@@ -18,7 +15,7 @@ const CardListSchema = new Schema({
   parentId: String,
   personalList: [{
     type: Schema.Types.ObjectId,
-    ref: "BusinessCard"
+    ref: "BusyCard"
   }]
 })
 
@@ -36,7 +33,7 @@ const UserSchema = new Schema({
   },
   bCard: {
     type: Schema.Types.ObjectId,
-    ref: "BusinessCard"
+    ref: "BusyCard"
   }
 });
 

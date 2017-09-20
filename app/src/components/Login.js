@@ -21,6 +21,7 @@ export default class Login extends Component {
           <p> {errorMessage}</p>
         }
         </form>
+        <p>{this.props.history}</p>
       </div>
     );
   }

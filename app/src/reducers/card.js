@@ -1,3 +1,5 @@
+import { CARD_UPDATE } from '../actions';
+
 const CardReducer = (card = {
   name: 'Busy',
   title: 'Card',

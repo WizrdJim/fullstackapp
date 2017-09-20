@@ -17,7 +17,7 @@ const BCRYPT_COST = 11;
 
 const corsOptions = {
   "origin": "http://localhost:3000",
-  "methods": "GET, POST, UPDATE",
+  "methods": "GET, POST, PUT",
   "preflightContinue": true,
   "optionsSuccessStatus": 204,
   "credentials": true
@@ -71,39 +71,51 @@ app.post('/user', (req, res) => {
     return;
   }
   //encrypt password cause no one needs to know
+  console.log(username+''+password);
   bcrypt.hash(password, BCRYPT_COST, (err, passwordHash) => {
     if (err) {
       sendUserError(err, res);
       return;
     }
     //builds boilerplate card
+    console.log(name+''+title+''+link);
     const newCard = new BusyCard({name, title, link});
     newCard.save((error, card) => {
       if (error) {
+        console.log(error.message)
         sendUserError(error, res);
         return;
       }
+      console.log(card);
       //Connect the user with the default card id
       const bCard = card._id;
+      console.log(bCard);
 
       const newUser = new User({ username, passwordHash, bCard });
-      newUser.save((error, user) => {
+      newUser.save((erro, user) => {
         if (error) {
-          sendUserError(error, res);
+          console.log(erro);
+          sendUserError(erro, res);
           return;
         }
         //User saved should return the user_id and the busycard does not currrently!!!!!!
-        res.json({Success: "Happens"});
+        console.log(user._id+''+ user.bCard)
+        res.json({id: user._id, bCard: user.bCard});
       })
     })
   })
 })
 app.put('/card', (req, res) => {
   //find card by id update card
+  console.log(req.body.card);
   const { id, name, title, link } = req.body.card;
-  BusyCard.findOne({id}, (error, card) => {
+  BusyCard.findOne({_id: id}, (error, card) => {
     if (error) {
       sendUserError(error, res);
+    }
+    if (!card) {
+      console.log('card not found');
+      return;
     }
     card.name = name;
     card.title = title;
@@ -127,7 +139,9 @@ app.post("/login", (req, res) => {
     sendUserError("Please input a valid Username/Password", res);
   }
   console.log('username: ' + username + ' password: ' + password);
-  User.findOne({ username }, (err, user) => {
+  User.findOne({ username })
+    .populate('bCard')
+    .exec((err, user) => {
     if (err) {
       sendUserError(err, res);
       return;
@@ -138,7 +152,9 @@ app.post("/login", (req, res) => {
     }
     if (bcrypt.compareSync(password, user.passwordHash)) {
       //implement token here
-      res.json({ success: true, id: user._id});
+      const card = user.bCard;
+      console.log(card);
+      res.json({ success: true, id: user._id, card});
       return;
     }
     sendUserError("Please input a valid Username/Password", res);
