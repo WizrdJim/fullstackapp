@@ -34,6 +34,10 @@ const UserSchema = new Schema({
   bCard: {
     type: Schema.Types.ObjectId,
     ref: "BusyCard"
+  },
+  loc: {
+    type: [Number], //[<longitude>, <latitude>]
+    index: '2d' //create the geospatial index
   }
 });
 

@@ -9,6 +9,20 @@ export const AUTHENTICATION_ERROR = 'AUTHENTICATION_ERROR';
 export const CARD_UPDATE = 'CARD_UPDATE';
 export const AUTHENTICATION_CHECK = 'AUTHENTICATION_CHECK';
 export const START_FRESH = 'START_FRESH';
+export const GET_LOCATION = 'GET_LOCATION';
+
+export const getLocation = () => {
+  const geolocation = navigator.geolocation;
+  return dispatch => {    
+    geolocation.getCurrentPosition(location, error).then(
+      location => dispatch({
+        type: GET_LOCATION,
+        payload: location
+      }),
+      error => console.log(error)
+    )
+  }  
+};
 
 export const authError = (error) => {
   return {
