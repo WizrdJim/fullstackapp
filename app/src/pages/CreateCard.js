@@ -40,7 +40,7 @@ class CreateCard extends Component {
     console.log(link);
     const id = localStorage.getItem('cardId');
     const card = {id, name, title, link };
-    this.props.updateCard(card);
+    this.props.updateCard(card, this.props.history);
   }
   renderAlert = () => {
     if (!this.props.errorMessage) return null;

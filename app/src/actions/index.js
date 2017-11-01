@@ -9,19 +9,14 @@ export const AUTHENTICATION_ERROR = 'AUTHENTICATION_ERROR';
 export const CARD_UPDATE = 'CARD_UPDATE';
 export const AUTHENTICATION_CHECK = 'AUTHENTICATION_CHECK';
 export const START_FRESH = 'START_FRESH';
-export const GET_LOCATION = 'GET_LOCATION';
+export const SET_LOCATION = 'SET_LOCATION';
 
-export const getLocation = () => {
-  const geolocation = navigator.geolocation;
-  return dispatch => {    
-    geolocation.getCurrentPosition(location, error).then(
-      location => dispatch({
-        type: GET_LOCATION,
-        payload: location
-      }),
-      error => console.log(error)
-    )
-  }  
+export const setLocation = (data) => {
+  console.log("data passed to Redux: " + data);
+  return {
+    type: SET_LOCATION,
+    payload: data
+  }
 };
 
 export const authError = (error) => {
@@ -55,7 +50,7 @@ export const register = (user, history) => {
   };
 };
 
-export const updateCard = (card) => {
+export const updateCard = (card, history) => {
   return (dispatch) => {
     axios.put(`${SERVER_URL}/card`, { card })
       .then((response) => {
@@ -63,6 +58,7 @@ export const updateCard = (card) => {
           type: CARD_UPDATE,
           payload: card
         })
+        history.push('/user');
       })
       .catch(() => {
         dispatch(

@@ -1,4 +1,4 @@
-import { GET_LOCATION } from '../actions';
+import { SET_LOCATION } from '../actions';
 const INIT_STATE = {
   coords: {
     latitude: 0,
@@ -8,11 +8,18 @@ const INIT_STATE = {
 
 const UserReducer = (state = INIT_STATE, action) => {
   switch(action.type) {
-  case GET_LOCATION:
-    console.log(action.payload)
-    return action.payload;
+  case SET_LOCATION:
+    // console.log("Payload in reducer: " + Object.assign(state.coords, {
+    //   latitude: action.payload.latitude,
+    //   longitude: action.payload.longitude
+    // }))
+    return Object.assign(state,  {
+        latitude: action.payload.latitude,
+        longitude: action.payload.longitude
+      });
   default:
     return state
+
   }
 }
 
