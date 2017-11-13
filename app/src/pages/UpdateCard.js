@@ -4,7 +4,7 @@ import { withRouter } from "react-router-dom";
 import Card from '../components/Card';
 import { updateCard } from '../actions';
 
-class CreateCard extends Component {
+class UpdateCard extends Component {
   constructor(props) {
     super()
     this.state= {
@@ -65,10 +65,10 @@ class CreateCard extends Component {
             <label>Confirm title:</label>
             <input value={this.state.link} type = 'text' placeholder ='Link' onChange={this.handleLink}/>
           </fieldset>
-          <button type = "submit">Sign Up</button>
+          <button type = "submit">Update</button>
           {this.renderAlert()}
         </form>
-      <div>CreateCard</div>
+      <div>UpdateCard</div>
       </div>
     );
   }
@@ -85,5 +85,5 @@ const mapStateToProps = (state) => {
 };
 
 // Make sure to correctly fill in this `connect` call
-CreateCard = withRouter(connect( mapStateToProps,{ updateCard })(CreateCard));
-export default CreateCard;
+UpdateCard = withRouter(connect( mapStateToProps,{ updateCard })(UpdateCard));
+export default UpdateCard;

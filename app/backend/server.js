@@ -130,6 +130,26 @@ app.put('/card', (req, res) => {
   })
 });
 
+app.put("/location", (req, res) => {
+  const {loc, id} = req.body;
+  console.log(loc);
+  User.findOne({_id: id})
+    .exec((error, user) => {
+      if(error) {
+        sendUserError(error, res);
+        return;
+      }
+      user.loc = loc;
+      user.save((err, user) => {
+        if(err) {
+          sendUserError(err, res);
+          return;
+        }
+        console.log(user);
+      })
+    })
+})
+
 app.post("/login", (req, res) => {
   const { username, password } = req.body;
   if(!password) {

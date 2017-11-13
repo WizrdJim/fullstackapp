@@ -12,7 +12,7 @@ class User extends Component {
       latitude: 0
     }
   }
-  componentWillMount() {
+  gpsClick() {
     var options = {
       enableHighAccuracy: true,
       timeout: 5000,
@@ -26,6 +26,11 @@ class User extends Component {
         longitude: crd.longitude
       });
       this.props.setLocation(crd);
+      console.log(this.props.coords)
+      this.setState({
+        latitude: this.props.latitude,
+        longitude: this.props.longitude
+      });
     };
     
     const error = (err) => {
@@ -45,9 +50,9 @@ class User extends Component {
           title = {this.props.card.title}
           link = {this.props.card.link}
         />
-        <div>Longitude: {this.state.longitude} Latitude: {this.state.latitude} </div>
-        <button type='Submit'> Gps Stiff maybe????</button>
-        <Link to='/createcard'> Update Card </Link>
+        <div>Longitude: {this.props.coords.longitude} Latitude: {this.props.coords.latitude} </div>
+        <button type='Submit' onClick={()=> this.gpsClick()}> Gps Stiff maybe????</button>
+        <Link to='/updatecard'> Update Card </Link>
       </div>
 
     )
@@ -57,7 +62,7 @@ class User extends Component {
 const mapStateToProps = state => {
   return {
     card: state.card,
-    user: state.user
+    coords: state.user
   }
 }
 User = withRouter(connect(mapStateToProps, {setLocation})(User))

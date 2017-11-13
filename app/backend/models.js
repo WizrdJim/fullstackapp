@@ -19,8 +19,6 @@ const CardListSchema = new Schema({
   }]
 })
 
-
-
 const UserSchema = new Schema({
   username: {
     type: String,

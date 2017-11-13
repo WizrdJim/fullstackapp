@@ -13,6 +13,11 @@ export const SET_LOCATION = 'SET_LOCATION';
 
 export const setLocation = (data) => {
   console.log("data passed to Redux: " + data);
+  const locUpdate = {
+    loc: [data.longitude, data.latitude],
+    id: localStorage.getItem('id')
+  }
+  axios.put(`${SERVER_URL}/location`, locUpdate)
   return {
     type: SET_LOCATION,
     payload: data
@@ -42,7 +47,7 @@ export const register = (user, history) => {
       dispatch({
         type: USER_AUTHENTICATED,
       })
-      history.push('./createcard')
+      history.push('./updatecard')
     })
     .catch(() => {
       dispatch(authError('Failed to register user'));
@@ -62,7 +67,7 @@ export const updateCard = (card, history) => {
       })
       .catch(() => {
         dispatch(
-          authError('Failed to create card')
+          authError('Failed to update card')
         );
       });
   };

@@ -19,7 +19,7 @@ class App extends Component {
         <div>
           <Route exact path="/" component ={Pages.Home} />
           <Route path="/signup" component = { Pages.CreateUser } />
-          <Route path="/createcard" component = {Pages.CreateCard} />
+          <Route path="/updatecard" component = {Pages.UpdateCard} />
           <Route path="/user" component = {Pages.User} />
         </div>
       </div>
