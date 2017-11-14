@@ -21,6 +21,7 @@ class App extends Component {
           <Route path="/signup" component = { Pages.CreateUser } />
           <Route path="/updatecard" component = {Pages.UpdateCard} />
           <Route path="/user" component = {Pages.User} />
+          <Route path="/findcards" component = {Pages.FindCard} />
         </div>
       </div>
     );

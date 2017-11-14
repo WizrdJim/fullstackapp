@@ -25,7 +25,7 @@ class User extends Component {
         latitude: crd.latitude,
         longitude: crd.longitude
       });
-      this.props.setLocation(crd);
+      this.props.setLocation(crd, this.props.history);
       console.log(this.props.coords)
       this.setState({
         latitude: this.props.latitude,
@@ -65,5 +65,5 @@ const mapStateToProps = state => {
     coords: state.user
   }
 }
-User = withRouter(connect(mapStateToProps, {setLocation})(User))
+User = withRouter(connect(mapStateToProps, { setLocation })(User));
 export default User;
