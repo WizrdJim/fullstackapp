@@ -190,13 +190,14 @@ app.post("/nearby", (req, res) => {
       '$geometry': { type: 'Point', coordinates: loc}
     }
   }})
+  .populate('bCard')
   .exec((err, users) => {
     if(err) {
       console.log(err);
       sendUserError(err, res);
       return;
     }
-    console.log("**********USERS: " + users);
+    console.log("**********USERS: " + JSON.stringify(users));
     res.json({users})
   })
 })
