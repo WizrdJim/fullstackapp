@@ -12,7 +12,10 @@ class User extends Component {
       latitude: 0
     }
   }
-  gpsClick() {
+  searchClick() {
+    this.props.history.push('/findcards');
+  }
+  componentDidMount() {
     var options = {
       enableHighAccuracy: true,
       timeout: 5000,
@@ -39,9 +42,6 @@ class User extends Component {
     
     navigator.geolocation.getCurrentPosition(success, error, options);
   }
-  componentDidMount() {
-
-  }
   render() {
     return(
       <div>
@@ -51,7 +51,7 @@ class User extends Component {
           link = {this.props.card.link}
         />
         <div>Longitude: {this.props.coords.longitude} Latitude: {this.props.coords.latitude} </div>
-        <button type='Submit' onClick={()=> this.gpsClick()}> Gps Stiff maybe????</button>
+        <button type='Submit' onClick={()=> this.searchClick()}> SEARCH</button>
         <Link to='/updatecard'> Update Card </Link>
       </div>
 

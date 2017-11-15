@@ -4,6 +4,14 @@ const Schema = mongoose.Schema;
 mongoose.Promise = Promise;
 mongoose.connect('mongodb://localhost/fullstackapp', {useMongoClient: true});
 
+/***********************************************
+ * To do build friend card Schema
+ * Should have classifications
+ * Where Friends are ones that persist and are saved
+ * Starred are those who will only exist temporarily
+ * 
+ */ 
+
 
 const BusyCardSchema = new Schema({
   name: String,
@@ -35,11 +43,15 @@ const UserSchema = new Schema({
   },
   loc: {
     type: [Number], //[<longitude>, <latitude>]
-    index: '2d' //create the geospatial index
-  }
+    index: '2dSphere' //create the geospatial index
+  },
+  // cardList: {
+  //   type: Schema.Types.ObjectId,
+  //   ref: "CardList"
+  // }
 });
 
-
+UserSchema.index({loc: '2dsphere'});
 User = mongoose.model("User", UserSchema);
 BusyCard = mongoose.model("BusyCard", BusyCardSchema);
 CardList = mongoose.model("CardList", CardListSchema);

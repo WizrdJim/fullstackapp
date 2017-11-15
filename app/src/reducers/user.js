@@ -1,9 +1,7 @@
 import { SET_LOCATION } from '../actions';
 const INIT_STATE = {
-  coords: {
     latitude: 0,
     longitude: 0
-  }
 }
 
 const UserReducer = (state = INIT_STATE, action) => {

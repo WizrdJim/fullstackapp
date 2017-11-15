@@ -10,6 +10,7 @@ export const CARD_UPDATE = 'CARD_UPDATE';
 export const AUTHENTICATION_CHECK = 'AUTHENTICATION_CHECK';
 export const START_FRESH = 'START_FRESH';
 export const SET_LOCATION = 'SET_LOCATION';
+export const NEARBY_USERS = 'NEARBY_USERS';
 
 export const setLocation = (data) => {
   console.log("data passed to Redux: " + data);
@@ -80,7 +81,8 @@ export const login = (user, history) => {
         localStorage.setItem('id', data.data.id);
         //Stores the card id in the local storage
         //ideally everything would go through redux!
-        localStorage.setItem('cardId', data.data.bCard);
+        console.log('*******where oh where is cardId?*********' + JSON.stringify(data.data))
+        localStorage.setItem('cardId', data.data.card._id);
         dispatch({
           type: USER_AUTHENTICATED,
         });
@@ -117,6 +119,23 @@ export const logout = (history) => {
     //   });
   };
 };
+
+export const findNearby = (loc) => {
+  return(dispatch) => {
+  const id = localStorage.getItem('id');
+  console.log("location in ACTIONS: " + loc)
+  axios.post(`${SERVER_URL}/nearby`,{id, loc})
+    .then((data)=> {
+      dispatch({
+        type: NEARBY_USERS,
+        payload: data.data
+      })
+    })
+    .catch(()=> {
+      console.log("***********ERROR finding Nearby user************")
+    })
+  }
+}
 
 
 export const authenticationCheck = () => {

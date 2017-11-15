@@ -14,18 +14,22 @@ export default class Navbar extends Component {
           <a className= 'navbar-brand'> BCA</a>
         <div className = 'navbar-form'>
           {!authenticated && 
+          <div>
            <Login
             errorMessage = { errorMessage }
             onLoginClick = {(user) => dispatch(login(user, this.props.history))}
             />
+            <Link to= 'signup'> Create Account </Link>
+          </div>
           }
-          <Link to= 'signup'> Create Account </Link>
+          
           {authenticated && 
             <Logout onLogoutClick = { () => dispatch(logout(this.props.history))}
               />
             }
           </div>
         </div>
+        <Link to= 'user'> Home </Link>
       </nav>
     )
   }

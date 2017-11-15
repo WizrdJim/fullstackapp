@@ -181,6 +181,26 @@ app.post("/login", (req, res) => {
   })
 })
 
+app.post("/nearby", (req, res) => {
+  const {id, loc} = req.body;
+  console.log("location datat passed to /nearby " + loc)
+  User.find({'loc': {
+    '$near': {
+      '$maxDistance': 10,
+      '$geometry': { type: 'Point', coordinates: loc}
+    }
+  }})
+  .exec((err, users) => {
+    if(err) {
+      console.log(err);
+      sendUserError(err, res);
+      return;
+    }
+    console.log("**********USERS: " + users);
+    res.json({users})
+  })
+})
+
 app.listen(3007, () => {
   console.log('I hear you loud and proud on port 3007');
 });
