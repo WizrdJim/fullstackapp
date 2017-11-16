@@ -65,7 +65,7 @@ class UpdateCard extends Component {
             <label>Confirm title:</label>
             <input value={this.state.link} type = 'text' placeholder ='Link' onChange={this.handleLink}/>
           </fieldset>
-          <button type = "submit">FindCard</button>
+          <button type = "submit">UpdateCard</button>
           {this.renderAlert()}
         </form>
       </div>
