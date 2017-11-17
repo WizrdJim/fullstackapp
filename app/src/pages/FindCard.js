@@ -22,26 +22,12 @@ class FindCard extends Component {
     console.log("FindCard's initial coords: " + JSON.stringify(this.props.coords));
     const {longitude, latitude} = this.props.coords;
     this.props.findNearby([longitude, latitude]);
-    console.log(this.props.nearbyList)
   }
-  componentDidMount() {
+  componentWillReceiveProps() {
     console.log("NearbyList in CDM: " + JSON.stringify(this.props.nearbyList))
     this.setState({
       nearbyList: this.props.nearbyList
     })
-  }
-  cardList(nearbyList)  {
-    if(nearbyList.length > 0) {
-       nearbyList.map((user) => {
-        return <Card
-          name = {user.bCard.name}
-          title = {user.bCard.title}
-          link = {user.bCard.link}
-        />
-      });
-    } else {
-      return "Empty";
-    }
   }
   render() {
     console.log("NearbyList state after mount: " + this.state.nearbyList)    
@@ -51,8 +37,9 @@ class FindCard extends Component {
           <Card name = {this.props.card.name} title = {this.props.card.title} link = {this.props.card.link}/>
         </div>
         <div>
+          {console.log("nearbyList: *************  " + JSON.stringify(this.props.nearbyList))}
            {
-            this.state.nearbyList.map((user) => {
+            this.props.nearbyList.map((user) => {
             return <Card key={user.username.toString()}
             name = {user.bCard.name}
             title = {user.bCard.title}
