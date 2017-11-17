@@ -1,5 +1,5 @@
 import axios from 'axios';
-const SERVER_URL = 'http://localhost:3007';
+const SERVER_URL = process.env.NODE_ENV === 'production'? 'https://infinite-cliffs-53249.herokuapp.com/':'http://localhost:3007';
 axios.default.withCredentials = true;
 
 export const USER_REGISTERED = 'USER_REGISTERED';
